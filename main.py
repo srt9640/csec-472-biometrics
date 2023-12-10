@@ -29,23 +29,36 @@ image = None
 
 kp1, kp2, mp = None, None, None
 
-# Input for image
-# sample = cv2.imread("")
-
 
 
 ''' Start of functions
 '''
 
-for subdir, dirs, files in os.walk(DATA_DIR):
-    for file in files:
-        print (file)
+def iterate(analysis_choice):
+    # Loop through all data files for images
+    for subdir, dirs, files in os.walk(DATA_DIR):
+        for file in files:
+            # Split data into [name, file_format]
+            data = file.split('.')
 
+            if data[1] == 'png':
+                print(file)
+        
+def main():
+    # Numbers in analysis_choice list will correlate to which methods to be applied.
+    analysis_choice = [0]
+    iterate(analysis_choice)
+
+main()
 '''
+# Input for image
+# sample = cv2.imread("")
+
 for file in [file for file in os.listdir()]:
     fingerprint_image = cv2.imread("" + file)
-'''
-''' Test comments
+
+    
+# Show image and delete window shortly after
 cv2.imshow("Sample", sample)
 cv2.waitKey(0)
 cv2.destroyAllWindows
