@@ -15,6 +15,10 @@ import os, cv2, pathlib
 SCRIPT_PATH = str(pathlib.Path(__file__).parent.resolve())
 DATA_DIR = SCRIPT_PATH + "\\data"
 
+# Training data numbers
+TRAIN_MAX = 1499
+TEST_MAX = 2000
+
 # Optional resizing of image
 # sample = cv2.resize(sample, None, fx=2.5, fy=2.5)
 
@@ -38,18 +42,26 @@ def iterate(analysis_choice):
     # Loop through all data files for images
     for subdir, dirs, files in os.walk(DATA_DIR):
         for file in files:
-            # Split data into [name, file_format]
-            data = file.split('.')
+            if file[0] == 'f':
+                # Split data into [name, file_format]
+                data = file.split('.')
 
-            if data[1] == 'png':
-                print(file)
-        
+                if data[1] == 'png':
+                    if (int(file[1:5]) <= TRAIN_MAX):
+                        print(file)
+                    elif (int(file[1:5]) <= TEST_MAX):
+                        print('here')
+
+
 def main():
     # Numbers in analysis_choice list will correlate to which methods to be applied.
     analysis_choice = [0]
     iterate(analysis_choice)
 
 main()
+
+
+
 '''
 # Input for image
 # sample = cv2.imread("")
