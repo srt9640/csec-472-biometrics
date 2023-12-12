@@ -19,9 +19,6 @@ DATA_DIR = SCRIPT_PATH + "\\data"
 TRAIN_MAX = 1499
 TEST_MAX = 2000
 
-# Optional resizing of image
-# sample = cv2.resize(sample, None, fx=2.5, fy=2.5)
-
 #Best match score
 best_score = 0
 
@@ -47,6 +44,8 @@ def iterate(analysis_choice):
                 data = file.split('.')
 
                 if data[1] == 'png':
+
+                    #Separates training data/test data
                     if (int(file[1:5]) <= TRAIN_MAX):
                         print(file)
                     elif (int(file[1:5]) <= TEST_MAX):
@@ -60,7 +59,8 @@ def main():
 
 main()
 
-
+print(DATA_DIR)
+print(SCRIPT_PATH)
 
 '''
 # Input for image
@@ -74,5 +74,8 @@ for file in [file for file in os.listdir()]:
 cv2.imshow("Sample", sample)
 cv2.waitKey(0)
 cv2.destroyAllWindows
+
+# Optional resizing of image
+sample = cv2.resize(sample, None, fx=2.5, fy=2.5)
 '''
 
