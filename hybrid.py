@@ -16,9 +16,9 @@ def gatherConsensus(targetImage, referenceImage, MarginMaxTotal, MarginMinTotal,
     for MarginMax in range( MarginMaxTotal, MarginMinTotal, MarginStep):
         consensus = 0
 
-        pAvgResult = pixelAverage.evaluate(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax)
-        siftResult = SIFT.evaluate(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax, SIFT_RATIO)
-        histResult = histogram.calculate_difference(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax, HIST_DEFAULT_CORREL_RATIO)
+        pAvgResult = pixelAverage.evaluate(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax if MarginMax != 0 else -1)
+        siftResult = SIFT.evaluate(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax if MarginMax != 0 else -1, SIFT_RATIO)
+        histResult = histogram.calculate_difference(targetImage, referenceImage, MarginMax, MarginMinTotal, -1*MarginMax if MarginMax != 0 else -1, HIST_DEFAULT_CORREL_RATIO)
 
         if pAvgResult[MarginMax]:
             consensus += 1 
@@ -77,8 +77,8 @@ def main():
     imageIndexStart = 0
     imageIndexEnd = 2000
     imageDirectory = DATA_DIR
-    MarginMax = 25
-    MarginMin = 10
+    MarginMax = 80
+    MarginMin = -1
     MarginStep = -5
     
     run(imageIndexStart, imageIndexEnd, imageDirectory, MarginMax, MarginMin, MarginStep)
